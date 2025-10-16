@@ -5,12 +5,12 @@
 }}
 
 SELECT
-employeeid as employee_key,
-employeeid,
-firstname,
-lastname,
+employee_id as employee_key,
+employee_id,
+first_name,
+last_name,
 email,
-phone,
+phone_number,
 hire_date,
 position
 FROM {{ source('oliver_landing', 'employee') }}

@@ -5,8 +5,8 @@
 }}
 
 SELECT
-storeid as store_key,
-storeid,
+store_id as store_key,
+store_id,
 store_name,
 street,
 city,
