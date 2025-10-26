@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: oliver_dim_customer
+    description: "Oliver's customer dimension"
+  - name: oliver_dim_date
+    description: "Oliver's date dimension"
+  - name: oliver_dim_employee
+    description: "Oliver's employee dimension"
+  - name: oliver_dim_product
+    description: "Oliver's product dimension"
+  - name: oliver_dim_store
+    description: "Oliver's store dimension"
+  - name: oliver_fact_sales
+    description: "Oliver's sales fact"
+  - name: stg_employee_certifications
+    description: |
+      Staging model for employee certifications.
+      Each row represents a certification earned by an employee.
+  - name: fact_certification
+    description: |
+      Fact table for employee certifications. 
+      The grain of this table is one certification earned by one employee on a certain date.
