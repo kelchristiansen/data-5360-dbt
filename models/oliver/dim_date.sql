@@ -9,10 +9,11 @@ with cte_date as (
 )
 
 SELECT
-date_id as date_key,
-date_id,
-dayofweek,
-month,
-quarter,
-year
+date_day as date_key,
+date_day,
+day_of_week,
+month_of_year,
+month_name,
+quarter_of_year,
+year_number
 from cte_date

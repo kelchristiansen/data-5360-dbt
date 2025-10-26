@@ -6,13 +6,12 @@
 
 
 SELECT
-c.firstname as customer_first_name,
-c.lastname as customer_last_name,
+c.first_name as customer_first_name,
+c.last_name as customer_last_name,
 d.date_day,
-p.productid,
-e.firstname as employee_first_name,
-e.lastname as employee_last_name,
-f.dollars_sold
+p.product_id,
+e.first_name as employee_first_name,
+e.last_name as employee_last_name
 FROM {{ source('oliver_landing','orderline') }} f
 
 LEFT JOIN {{ ref('dim_customer') }} c
