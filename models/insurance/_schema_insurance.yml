@@ -1,22 +1,48 @@
 version: 2
 
 models:
-  - name: insurance_dim_agent
+  - name: dim_agent
     description: "Insurance Agent Dimension"
-  - name: insurance_dim_customer
+  - name: dim_customer
     description: "Insurance Customer Dimension"
-  - name: insurance_dim_date
+  - name: dim_date
     description: "Insurance Date Dimension"
-  - name: insurance_dim_policy
+  - name: dim_policy
     description: "Insurance Policy Dimension"
-  - name: insurance_fact_claim
+    columns: 
+    - name: policy_key
+      tests:
+        - unique
+  - name: fact_claim
     description: "Insurance Claim Fact"
+    columns:
+      - name: policy_key
+        tests:
+          - not_null
   - name: stg_customer_service_interactions
     description: |
       Staging model for customer service interactions.
       Each row represents a call between a customer and an agent. 
+    columns:
+      - name: issue_type
+        tests:
+          - accepted_values:
+              values:
+                - "New Claim"
+                - "Claim Status"
+                - "Policy Change"
+                - "Coverage Info"
+                - "Billing Issue"
+                - "Policy Renewal"
+
   - name: fact_interaction
     description: |
       Customer Service Interactions fact.
       The grain of this table is customer + agent + date
       Each row represents a call between a customer and an agent on a given date.
+    columns:
+      - name: customer_key
+        tests:
+          - relationships:
+              to: ref('dim_customer') # the model you want to compare to
+              field: customer_key # the field on the model you want to compare to
