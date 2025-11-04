@@ -1,22 +1,44 @@
 version: 2
 
 models:
-  - name: oliver_dim_customer
+  - name: dim_customer
     description: "Oliver's customer dimension"
-  - name: oliver_dim_date
+    columns:
+      - name: customer_key
+        tests:
+          - unique
+  - name: dim_date
     description: "Oliver's date dimension"
-  - name: oliver_dim_employee
+  - name: dim_employee
     description: "Oliver's employee dimension"
-  - name: oliver_dim_product
+  - name: dim_product
     description: "Oliver's product dimension"
-  - name: oliver_dim_store
+    columns:
+      - name: product_key
+        tests:
+          - not_null
+  - name: dim_store
     description: "Oliver's store dimension"
-  - name: oliver_fact_sales
+    columns:
+      - name: store_name
+        tests:
+          - accepted_values:
+              values:
+                - "Franks Corner"
+                - "North Skagway"
+                - "East Gilbert"
+  - name: fact_sales
     description: "Oliver's sales fact"
   - name: stg_employee_certifications
     description: |
       Staging model for employee certifications.
       Each row represents a certification earned by an employee.
+    columns:
+      - name: employee_id
+        tests:
+          - relationships:
+              to: ref('dim_employee') # the model you want to compare to
+              field: employee_id # the field on the model you want to compare to
   - name: fact_certification
     description: |
       Fact table for employee certifications. 
