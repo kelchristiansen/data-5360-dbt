@@ -12,19 +12,22 @@ d.date_day,
 p.product_id,
 e.first_name as employee_first_name,
 e.last_name as employee_last_name
-FROM {{ source('oliver_landing','orderline') }} f
+FROM {{ source('oliver_landing','orderline') }} ol
+
+LEFT JOIN {{ source('oliver_landing','orders') }} o
+    ON ol.order_id = o.order_id
 
 LEFT JOIN {{ ref('dim_customer') }} c
-    ON f.customer_key = c.customer_key
+    ON o.customer_id = c.customer_id
 
 LEFT JOIN {{ ref('dim_date') }} d
-    ON f.date_key = d.date_key
+    ON o.order_date = d.date_key
 
 LEFT JOIN {{ ref('dim_employee') }} e
-    ON f.employee_key = e.employee_key
+    ON o.employee_id = e.employee_id
 
 LEFT JOIN {{ ref('dim_product') }} p
-    ON f.product_key = p.product_key
+    ON ol.product_id = p.product_id
 
 LEFT JOIN {{ ref('dim_store') }} s
-    ON f.store_key = s.store_key
+    ON o.store_id = s.store_id
